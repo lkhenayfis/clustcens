@@ -17,7 +17,7 @@ getclustclass(clust)
 \method{getclustclass}{default}(clust)
 }
 \arguments{
-\item{clust}{objeto com classe \code{clustena} e subclasse especifica do metodo}
+\item{clust}{objeto com classe \code{clustcens} e subclasse especifica do metodo}
 }
 \value{
 Para \code{getclustmeans}, os centroides; para \code{getclustclass} as classificacoes

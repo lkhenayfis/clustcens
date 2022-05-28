@@ -2,8 +2,8 @@ test_that("Testes de clusterizacao", {
 
     set.seed(1234)
 
-    cens <- cenariosdummy["A1", "SIN"]
-    compac <- PCAena(cens)
+    cens <- cenariosdummy["SIN"]
+    compac <- PCAcens(cens)
 
     # KMEANS
 

@@ -43,7 +43,7 @@ NULL
 #' 
 #' Funcoes genericas para extracao das classes ajustadas e centroides de cada classe
 #' 
-#' @param clust objeto com classe \code{clustena} e subclasse especifica do metodo
+#' @param clust objeto com classe \code{clustcens} e subclasse especifica do metodo
 #' 
 #' @return Para \code{getclustmeans}, os centroides; para \code{getclustclass} as classificacoes
 #' 
@@ -243,6 +243,6 @@ getclustmeans.hclust_aug <- function(clust) attr(clust, "medias")
 
 extracdims <- function(x) {
     x <- x$compact
-    x <- dcast(x, cenario ~ bacia + ind, value.var = "ena")[, -1]
+    x <- dcast(x, cenario ~ grupo + ind, value.var = "valor")[, -1]
     return(x)
 }

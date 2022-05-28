@@ -7,13 +7,12 @@
 selecporquantil(
   cenarios,
   quantis = c(0.25, 0.5, 0.75),
-  compact_fun = acumulaena,
+  compact_fun = acumulacens,
   compact_args = list()
 )
 }
 \arguments{
-\item{cenarios}{objeto da classe \code{cenariosena} do qual selecionar cenarios representativos
-contendo apenas uma bacia e ano de referencia}
+\item{cenarios}{objeto da classe \code{cenarios} do qual selecionar cenarios representativos}
 
 \item{quantis}{vetor de quantis para selecionar}
 
@@ -36,7 +35,7 @@ funcao sera chamada com \code{cenarios} como primeiro arumento; \code{compact_ar
 informar demais parametros a serem utilizados por \code{compact_fun}, na forma de uma lista
 nomeada.
 
-O argumento cenarios deve ser um objeto da classe \code{cenariosena} contendo apenas um ano de
+O argumento cenarios deve ser um objeto da classe \code{cenarios} contendo apenas um ano de
 referencia e bacia. \code{quantis} deve ser um vetor indicando quais quantis estao sendo
 buscados. Por construcao e impossivel extrair exatamente estes quantis, de modo que serao
 retornados os indices dos cenarios associados aos quantis mais proximos.

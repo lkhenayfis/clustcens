@@ -11,13 +11,12 @@
 #' informar demais parametros a serem utilizados por \code{compact_fun}, na forma de uma lista 
 #' nomeada.
 #' 
-#' O argumento cenarios deve ser um objeto da classe \code{cenariosena} contendo apenas um ano de 
+#' O argumento cenarios deve ser um objeto da classe \code{cenarios} contendo apenas um ano de 
 #' referencia e bacia. \code{quantis} deve ser um vetor indicando quais quantis estao sendo 
 #' buscados. Por construcao e impossivel extrair exatamente estes quantis, de modo que serao 
 #' retornados os indices dos cenarios associados aos quantis mais proximos. 
 #' 
-#' @param cenarios objeto da classe \code{cenariosena} do qual selecionar cenarios representativos
-#'     contendo apenas uma bacia e ano de referencia
+#' @param cenarios objeto da classe \code{cenarios} do qual selecionar cenarios representativos
 #' @param quantis vetor de quantis para selecionar
 #' @param compact_fun funcao para compactacao dos cenarios. Ver \code{\link{compact_funs}}
 #' @param compact_args lista nomeada informando argumentos (alem do primeiro) a \code{compact_fun}
@@ -27,14 +26,14 @@
 #' 
 #' @export
 
-selecporquantil <- function(cenarios, quantis = c(.25, .5, .75), compact_fun = acumulaena,
+selecporquantil <- function(cenarios, quantis = c(.25, .5, .75), compact_fun = acumulacens,
     compact_args = list()) {
 
     compact_call <- c(list(compact_fun, cenarios), compact_args)
     compact <- eval(as.call(compact_call))
 
     dat <- compact$compact
-    dat <- dcast(dat, cenario ~ ind, value.var = "ena")[, -1]
+    dat <- dcast(dat, cenario ~ ind, value.var = "valor")[, -1]
 
     if(ncol(dat) > 1) stop("A compactacao para selecao por quantil deve ser em apenas uma dimensao")
 
@@ -72,8 +71,7 @@ selecporquantil <- function(cenarios, quantis = c(.25, .5, .75), compact_fun = a
 #' de operacao: por exemplo, a reducao de dimensionalidade por acumulo de enas parciais e uma 
 #' transformacao que nao permite retornar para a escala original. Outras como PCA e autoencoder sim.
 #' 
-#' @param cenarios objeto da classe \code{cenariosena} do qual selecionar cenarios representativos
-#'     contendo apenas uma bacia e ano de referencia
+#' @param cenarios objeto da classe \code{cenarios} do qual selecionar cenarios representativos
 #' @param nc numero de clusters
 #' @param clust_fun funcao para clusterizacao. Veja \code{\link{clust_funs}} para mais detalhes
 #' @param ... demais parametros passados a \code{clust_fun}
@@ -89,7 +87,7 @@ selecporquantil <- function(cenarios, quantis = c(.25, .5, .75), compact_fun = a
 #' @export
 
 selecporcluster <- function(cenarios, nc, clust_fun = clustkmeans, ..., transforma = FALSE,
-    compact_fun = PCAena, compact_args = list()) {
+    compact_fun = PCAcens, compact_args = list()) {
 
     compact_call <- c(list(compact_fun, cenarios), compact_args)
     compact <- eval(as.call(compact_call))

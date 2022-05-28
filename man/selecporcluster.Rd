@@ -10,13 +10,12 @@ selecporcluster(
   clust_fun = clustkmeans,
   ...,
   transforma = FALSE,
-  compact_fun = PCAena,
+  compact_fun = PCAcens,
   compact_args = list()
 )
 }
 \arguments{
-\item{cenarios}{objeto da classe \code{cenariosena} do qual selecionar cenarios representativos
-contendo apenas uma bacia e ano de referencia}
+\item{cenarios}{objeto da classe \code{cenarios} do qual selecionar cenarios representativos}
 
 \item{nc}{numero de clusters}
 

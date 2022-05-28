@@ -2,7 +2,7 @@ test_that("Testes de selecao de cenarios", {
 
     set.seed(1234)
 
-    cens <- cenariosdummy["A1", "SIN"]
+    cens <- cenariosdummy["SIN"]
 
     # POR CLUSTER
 
@@ -16,7 +16,7 @@ test_that("Testes de selecao de cenarios", {
     expect_equal(class(sel[[2]]), "compactcen")
     expect_equal(class(sel[[3]]), "kmeans")
 
-    sel <- selecporcluster(cens, 5, compact_fun = acumulaena, compact_args = list(quebras = 3),
+    sel <- selecporcluster(cens, 5, compact_fun = acumulacens, compact_args = list(quebras = 3),
         clust_fun = clustEM, verbose = FALSE)
 
     expect_equal(length(sel), 3)
@@ -29,7 +29,7 @@ test_that("Testes de selecao de cenarios", {
 
     # POR QUANTIL
 
-    expect_error(selecporquantil(cens, compact_fun = PCAena))
+    expect_error(selecporquantil(cens, compact_fun = PCAcens))
 
     sel <- selecporquantil(cens)
 
