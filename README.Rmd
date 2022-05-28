@@ -13,12 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# clustena
+# clustcens
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/lkhenayfis/hidro-clustena/workflows/R-CMD-check/badge.svg)](https://github.com/lkhenayfis/hidro-clustena/actions)
-[![test-coverage](https://github.com/lkhenayfis/hidro-clustena/workflows/test-coverage/badge.svg)](https://github.com/lkhenayfis/hidro-clustena/actions)
-[![codecov](https://codecov.io/gh/lkhenayfis/hidro-clustena/branch/master/graph/badge.svg?token=S6ABRH82G0)](https://codecov.io/gh/lkhenayfis/hidro-clustena)
+[![R-CMD-check](https://github.com/lkhenayfis/hidro-clustcens/workflows/R-CMD-check/badge.svg)](https://github.com/lkhenayfis/hidro-clustcens/actions)
+[![test-coverage](https://github.com/lkhenayfis/hidro-clustcens/workflows/test-coverage/badge.svg)](https://github.com/lkhenayfis/hidro-clustcens/actions)
 <!-- badges: end -->
 
 Este pacote prove funcoes para selecao de cenarios de Energia Natural Afluente, independentemente da
@@ -32,7 +31,7 @@ diretamente a partir do repositorio utilizando:
 
 ```{r intro, eval = FALSE}
 # Caso a biblioteca remotes nao esteja instalada, execute install.packages("remotes") primeiro
-remotes::install_github("lkhenayfis/hidro-clustena", build_vignettes = FALSE)
+remotes::install_github("lkhenayfis/hidro-clustcens", build_vignettes = FALSE)
 ```
 
 ## Exemplo de uso
@@ -42,10 +41,10 @@ contidas neste pacote. Mais detalhes acerca das funcoes se encontram em suas res
 paginas de ajuda.
 
 ```{r leitura, fig.height=6}
-library(clustena)
+library(clustcens)
 
 # selecao de cenarios por PCA + Kmeans (com dado exemplo do pacote)
-cenarios <- cenariosdummy["A1", "SIN", , -c(1:5)]
+cenarios <- cenariosdummy["A1", "SIN"]
 selected <- selecporcluster(cenarios, 3)
 plot(cenarios, cenarios[, , selected[[1]]])
 ```

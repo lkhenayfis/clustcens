@@ -1,4 +1,4 @@
 library(testthat)
-library(clustena)
+library(clustcens)
 
-test_check("clustena")
+test_check("clustcens")
