@@ -80,7 +80,7 @@ plot.compactcen <- function(x, clusters, print = TRUE, ...) {
     Cluster <- Dim1 <- Dim2 <- NULL
 
     dat <- copy(x$compact)
-    dat <- dcast(dat, cenario ~ ind, value.var = "ena")[, -1]
+    dat <- dcast(dat, cenario ~ ind, value.var = "valor")[, -1]
     colnames(dat) <- paste0("Dim", seq(ncol(dat)))
     dim <- ncol(dat)
 
