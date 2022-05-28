@@ -42,9 +42,13 @@ test_that("Testes de leitura e classe cenarios", {
     expect_equal(attr(cc, "indices"), 4:5)
     expect_equal(attr(cc, "ncen"), 3)
 
-    #gg <- plot(cc, print = FALSE)
-    #expect_equal(class(gg), c("gg", "ggplot"))
+    # Testes de plot
 
-    #gg <- plot(cc, cc[c(55, 60, 65)], cc["G2", c(50, 55, 60)], print = FALSE)
-    #expect_equal(class(gg), c("gg", "ggplot"))
+    cc <- cenariosdummy
+
+    gg <- plot(cc, print = FALSE)
+    expect_equal(class(gg), c("gg", "ggplot"))
+
+    gg <- plot(cc, cc[c(55, 60, 65)], cc["SUL", c(50, 55, 60)], print = FALSE)
+    expect_equal(class(gg), c("gg", "ggplot"))
 })
