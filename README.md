@@ -7,6 +7,7 @@
 
 [![R-CMD-check](https://github.com/lkhenayfis/clustcens/workflows/R-CMD-check/badge.svg)](https://github.com/lkhenayfis/clustcens/actions)
 [![test-coverage](https://github.com/lkhenayfis/clustcens/workflows/test-coverage/badge.svg)](https://github.com/lkhenayfis/clustcens/actions)
+[![codecov](https://codecov.io/gh/lkhenayfis/clustcens/branch/master/graph/badge.svg?token=DC4I4Y0FSH)](https://codecov.io/gh/lkhenayfis/clustcens)
 <!-- badges: end -->
 
 Este pacote prove funcoes para selecao de cenarios de Energia Natural
