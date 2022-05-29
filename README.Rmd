@@ -16,8 +16,8 @@ knitr::opts_chunk$set(
 # clustcens
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/lkhenayfis/hidro-clustcens/workflows/R-CMD-check/badge.svg)](https://github.com/lkhenayfis/hidro-clustcens/actions)
-[![test-coverage](https://github.com/lkhenayfis/hidro-clustcens/workflows/test-coverage/badge.svg)](https://github.com/lkhenayfis/hidro-clustcens/actions)
+[![R-CMD-check](https://github.com/lkhenayfis/clustcens/workflows/R-CMD-check/badge.svg)](https://github.com/lkhenayfis/clustcens/actions)
+[![test-coverage](https://github.com/lkhenayfis/clustcens/workflows/test-coverage/badge.svg)](https://github.com/lkhenayfis/clustcens/actions)
 <!-- badges: end -->
 
 Este pacote prove funcoes para selecao de cenarios de Energia Natural Afluente, independentemente da
@@ -31,7 +31,8 @@ diretamente a partir do repositorio utilizando:
 
 ```{r intro, eval = FALSE}
 # Caso a biblioteca remotes nao esteja instalada, execute install.packages("remotes") primeiro
-remotes::install_github("lkhenayfis/hidro-clustcens", build_vignettes = FALSE)
+remotes::install_github("lkhenayfis/clustcens") # instalacao da versao de desenvolvimento
+remotes::install_github("lkhenayfis/clustcens@*release") # instalacao da ultima versao fechada
 ```
 
 ## Exemplo de uso
@@ -44,7 +45,7 @@ paginas de ajuda.
 library(clustcens)
 
 # selecao de cenarios por PCA + Kmeans (com dado exemplo do pacote)
-cenarios <- cenariosdummy["A1", "SIN"]
+cenarios <- cenariosdummy["SIN"]
 selected <- selecporcluster(cenarios, 3)
-plot(cenarios, cenarios[, , selected[[1]]])
+plot(cenarios, cenarios[, selected[[1]]])
 ```
