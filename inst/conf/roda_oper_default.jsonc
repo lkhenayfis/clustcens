@@ -1,0 +1,51 @@
+{
+    // tag para o estudo (sera usada como nome da pasta de saida)
+    "nome": "default",
+
+    // diretorio onde salvar resultados -- se vazio, usa o diretorio de execucao do programa
+    "outdir": "",
+
+    // arquivo de cenarios
+    // Se este elemento estiver vazio, o programa vai buscar nos argumentos de chamada da linha de
+    // comando se um arquivo foi passado depois daquele de configuracao. Caso negativo usa o dado
+    // interno do pacote mesmo
+    "arq_cenarios": "",
+
+    // Vetor de inteiros indicando anos a considerar no estudo -- vazio usa todos
+    "anos": [],
+
+    // Vetor de strings indicando quais bacias considerar no estudo -- varia usa todas
+    "bacias": ["SIN", "SUL", "SE", "NE", "N"],
+
+    // Datas ou indices de datas indicando quais meses de cada trajeto de cenario devem ser 
+    // removidos do estudo -- vazio nao corta nenhuma. Se fornecido data, e nao o indice, deve ser
+    // no formato "AAAA-MM-01" 
+    // Isso existe pois o dado de cenarios originalmente gerado vinha com trechos comuns nos 
+    // primeiros meses. Esse trecho comum deve ser removido para nao criar proximidade artificial
+    // entre cenarios na hora de clusterizar
+    "corte_datas": [],
+
+    // Bacia que sera utilizada para escolha dos cenarios representativos. Atualmente o codigo so
+    // esta preparado para clusterizacao de uma bacia, de modo que os cenarios escolhidos para ela
+    // sao tambem selecionados para todas as outras
+    "bacia_ref": "SIN",
+
+    // Configuracao de chamadas da funcao de selecao. Deve ser uma lista contendo em cada elemento 
+    // uma lista nomeada que sera convertida em call dentro do codigo. NAO PRECISA CONTER O 
+    // ARGUMENTO 'cenarios', este sera automaticamente definido como o arquivo indicado em 
+    // arq_cenarios
+    "seleciona": {
+        "acum_kmeans": {
+            "fun": "selecporcluster", "nc": 7, "clust_fun": "clustkmeans", "compact_fun": "acumulaena", "compact_args": {"quebras": 3}
+        },
+        "pca_kmeans": {
+            "fun": "selecporcluster", "nc": 7, "clust_fun": "clustkmeans", "compact_fun": "PCAena"
+        },
+        "acum_em": {
+            "fun": "selecporcluster", "nc": 7, "clust_fun": "clustEM", "compact_fun": "acumulaena", "compact_args": {"quebras": 3}
+        },
+        "pca_em": {
+            "fun": "selecporcluster", "nc": 7, "clust_fun": "clustEM", "compact_fun": "PCAena"
+        }
+    }
+}
