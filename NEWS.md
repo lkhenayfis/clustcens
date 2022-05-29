@@ -1,3 +1,10 @@
+# master
+
+## Bug fixes
+
+* Atualiza documentacao de `clust_funs` que estava defasada, sem mencao aos metodos hierarquico e
+  kmedoides
+
 # clustcens 1.0
 
 Este pacote prove funcoes para selecao de cenarios de variaveis genericas, independentemente da
