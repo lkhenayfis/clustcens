@@ -159,7 +159,12 @@ selecporcluster <- function(cenarios, nc, clust_fun = clustkmeans, ..., transfor
         clstmeans <- lapply(seq(dat_clust), function(i) clstmeans[i, ])
 
         maisprox <- mapply(dat_clust, clstmeans,
-            FUN = function(dc, cm) rowSums(mapply(dc, cm, FUN = "-")^2), SIMPLIFY = FALSE)
+            FUN = function(dc, cm) {
+                l <- mapply(dc, cm, FUN = "-", SIMPLIFY = FALSE)
+                l <- lapply(l, "^", 2)
+                Reduce("+", l)
+            },
+        SIMPLIFY = FALSE)
         maisprox <- lapply(maisprox, which.min)
         maisprox <- mapply(novaordem, maisprox, FUN = function(v, i) v[i])
 

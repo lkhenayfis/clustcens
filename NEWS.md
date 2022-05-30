@@ -10,6 +10,8 @@
 
 * Atualiza documentacao de `clust_funs` que estava defasada, sem mencao aos metodos hierarquico e
   kmedoides
+* Corrige um erro em `selecporcluster` que ocorria quando clusters tinham apenas um elemento. O 
+  calculo do elemento mais proximo dava erro em funcao da simplificacao de matriz para vetores
 
 # clustcens 1.0
 
