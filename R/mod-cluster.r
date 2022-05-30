@@ -34,8 +34,6 @@
 #' As paginas de help de cada uma das funcoes contem detalhes a respeito dos argumentos de cada uma
 #' (que podem ser passados as funcoes de selecao atraves de \code{...} naquelas chamadas).
 #' 
-#' @seealso Funcoes \code{\link{clustkmeans}} e \code{\link{clustEM}} para clusterizacao
-#' 
 #' @name clust_funs
 NULL
 

@@ -13,7 +13,24 @@ acumulacens(cenarios, quebras = 1L)
 inteiros indicando as posicoes nas quais separar}
 }
 \value{
-objeto da classe \code{compactcen} contendo o dado em dimensao reduzida
+objeto da classe \code{compactcen} contendo o dado em dimensao reduzida. Este e uma lista
+de um elemento nomeado \code{"compact"}, um \code{data.table} com as colunas
+
+\describe{
+\item{\code{grupo}}{grupo a qual o cenario corresponde}
+\item{\code{cenario}}{indice do cenario com respeito a grupo}
+\item{\code{ind}}{indice do elemento no vetor de dimensao reduzida}
+\item{\code{valor}}{valor do elemento no vetor de dimensao reduzida}
+}
+
+Adicionalmente contem os atributos
+
+\itemize{
+\item{\code{metodo}: }{string do nome da funcao chamada para compactacao}
+\item{\code{teminv}: }{booleano indicando se a compactacao possui inversa}
+\item{\code{invfunc}: }{caso tenha inversa, a funcao que recebe vetores no espaco compactado e
+retorna no espaco original}
+}
 }
 \description{
 Reducao de dimensao por valor acumulada, possivelmente em partes crescentes
@@ -29,4 +46,18 @@ Se \code{quebras = 3L}, por exemplo, a funcao quebra o cenario em tres partes ig
 soma de cada um. O vetor em dimensao reduzida e, entao, a soma acumulada destas partes. Para
 cenarios de um ano, indo de janeiro a dezembro, o uso de \code{quebras = 3L} representa o calculo
 do acumulado ate abril, agosto e dezembro (por construcao um vetor de valores crescentes).
+}
+\examples{
+
+# usando o dado exemplo do pacote
+
+# Compactando apenas os cenarios relativos ao SIN completo
+cens_compact <- acumulacens(cenariosdummy["SIN"], quebras = 2L)
+\dontrun{
+plot(cens_compact)
+}
+
+}
+\seealso{
+\code{\link{plot.compactcen}} para visualizacao das compactacoes
 }

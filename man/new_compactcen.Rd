@@ -16,7 +16,14 @@ original}
 }
 \value{
 Objeto da classe \code{compactcen}, uma lista de um emento chamado compact contendo o
-argumento \code{compact}
+argumento \code{compact}, um \code{data.table} com as colunas
+
+\describe{
+\item{\code{grupo}}{grupo a qual o cenario corresponde}
+\item{\code{cenario}}{indice do cenario com respeito a grupo}
+\item{\code{ind}}{indice do elemento no vetor de dimensao reduzida}
+\item{\code{valor}}{valor do elemento no vetor de dimensao reduzida}
+}
 
 Adicionalmente contem os atributos
 

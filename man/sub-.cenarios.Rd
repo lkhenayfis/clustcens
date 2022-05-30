@@ -23,3 +23,24 @@ objeto \code{cenarios} contendo apenas os valores especificados
 \description{
 Extrai subsets de objetos \code{cenarios} e adequa os atributios
 }
+\examples{
+
+# utilizando o dado exemplo do pacote
+
+# subset apenas da regiao "SUL"
+cens <- cenariosdummy["SUL"]
+
+# subset dos cenarios 5, 10, 20
+cens <- cenariosdummy[, c(5, 10, 20)]
+
+# datas simuladas 2022-11-01/2023-04-01
+cens <- cenariosdummy[, , seq.Date(as.Date("2022-11-01"), as.Date("2023-04-01"), by = "month")]
+
+# NE e N, cenarios 10, 11, 12 nas datas 2022-09-01/2023-02-01
+cens <- cenariosdummy[
+    c("NE", "N"),
+    c(10, 11, 12),
+    seq.Date(as.Date("2022-09-01"), as.Date("2023-02-01"), by = "month")
+]
+
+}

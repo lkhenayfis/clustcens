@@ -12,7 +12,24 @@ PCAcens(cenarios, vartot = 0.8)
 \item{vartot}{percentual em formato decimal de variacao total mininima}
 }
 \value{
-objeto da classe \code{compactcen} contendo o dado em dimensao reduzida
+objeto da classe \code{compactcen} contendo o dado em dimensao reduzida. Este e uma lista
+de um elemento nomeado \code{"compact"}, um \code{data.table} com as colunas
+
+\describe{
+\item{\code{grupo}}{grupo a qual o cenario corresponde}
+\item{\code{cenario}}{indice do cenario com respeito a grupo}
+\item{\code{ind}}{indice do elemento no vetor de dimensao reduzida}
+\item{\code{valor}}{valor do elemento no vetor de dimensao reduzida}
+}
+
+Adicionalmente contem os atributos
+
+\itemize{
+\item{\code{metodo}: }{string do nome da funcao chamada para compactacao}
+\item{\code{teminv}: }{booleano indicando se a compactacao possui inversa}
+\item{\code{invfunc}: }{caso tenha inversa, a funcao que recebe vetores no espaco compactado e
+retorna no espaco original}
+}
 }
 \description{
 Reduz dimensionalidade dos cenarios via PCA mantendo um minimo de variacao total
@@ -24,4 +41,18 @@ frente de dois grupos corresponde a uma matriz de dados 100 por 30. Serao seleci
 primeiras componentes principais que representem no minimo \code{vartot} por cento da variacao
 total. Deve ser observado que o dado e normalizado para media zero e variancia um antes da
 compactacao.
+}
+\examples{
+
+# usando o dado exemplo do pacote
+
+# Compactando apenas os cenarios relativos ao SIN completo
+cens_compact <- PCAcens(cenariosdummy["SIN"])
+\dontrun{
+plot(cens_compact)
+}
+
+}
+\seealso{
+\code{\link{plot.compactcen}} para visualizacao das compactacoes
 }

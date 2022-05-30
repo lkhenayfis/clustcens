@@ -1,5 +1,11 @@
 # master
 
+## New features
+
+### Minor
+
+* Adiciona exemplos nas documentacoes
+
 ## Bug fixes
 
 * Atualiza documentacao de `clust_funs` que estava defasada, sem mencao aos metodos hierarquico e

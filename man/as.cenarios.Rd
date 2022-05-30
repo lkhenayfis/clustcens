@@ -7,7 +7,7 @@
 as.cenarios(dat)
 }
 \arguments{
-\item{dat}{data.table para converter}
+\item{dat}{\code{data.frame} ou \code{data.table} para converter}
 }
 \value{
 objeto da classe \code{cenarios} -- veja \code{\link{new_cenarios}} para mais detalhes
@@ -34,4 +34,48 @@ Um exemplo de \code{dat} e dado abaixo\tabular{cccc}{
    SIN \tab 2 \tab 2022-01-01 \tab XXXX \cr
    SIN \tab 2 \tab 2022-01-02 \tab XXXX \cr
 }
+}
+\examples{
+
+# usando um dado inventado
+dat <- data.frame(
+    grupo = rep(paste0("G", seq(3)), each = 30),
+    cenario = rep(rep(seq(6), each = 5), 3),
+    indice = rep(seq(5), 18),
+    valor = rnorm(90)
+ )
+
+cens <- as.cenarios(dat)
+\dontrun{
+cens
+}
+
+# caso o dado nao possua as colunas nomeadas como esperado, serao adicionadas na ordem que se
+# esperava encontrar e um aviso sera emitido
+dat2 <- data.frame(
+    rep(paste0("G", seq(3)), each = 30),
+    rep(rep(seq(6), each = 5), 3),
+    rep(seq(5), 18),
+    rnorm(90)
+ )
+\dontrun{
+cens2 <- as.cenarios(dat2) # assume que as colunas estao na ordem esperada
+cens2
+}
+
+# por fim, se o dado tiver um numero de colunas diferente de quatro, a coercao retorna erro
+dat3 <- data.frame(
+    rep(paste0("G", seq(3)), each = 30),
+    rep(rep(seq(6), each = 5), 3),
+    rep(seq(5), 18),
+    rnorm(90),
+    rep(NA, 90)
+ )
+\dontrun{
+cens3 <- as.cenarios(dat3)
+}
+
+}
+\seealso{
+\code{\link{[.cenarios}} para subset de objetos da classe \code{cenarios}
 }

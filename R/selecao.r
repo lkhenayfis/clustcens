@@ -11,10 +11,10 @@
 #' informar demais parametros a serem utilizados por \code{compact_fun}, na forma de uma lista 
 #' nomeada.
 #' 
-#' O argumento cenarios deve ser um objeto da classe \code{cenarios} contendo apenas um ano de 
-#' referencia e bacia. \code{quantis} deve ser um vetor indicando quais quantis estao sendo 
-#' buscados. Por construcao e impossivel extrair exatamente estes quantis, de modo que serao 
-#' retornados os indices dos cenarios associados aos quantis mais proximos. 
+#' O argumento \code{cenarios} deve ser um objeto da classe \code{cenarios}. \code{quantis} deve ser
+#' um vetor indicando quais quantis estao sendo buscados. Por construcao e impossivel extrair
+#' exatamente estes quantis, de modo que serao retornados os indices dos cenarios associados aos 
+#' quantis mais proximos. 
 #' 
 #' @param cenarios objeto da classe \code{cenarios} do qual selecionar cenarios representativos
 #' @param quantis vetor de quantis para selecionar
@@ -23,6 +23,18 @@
 #' 
 #' @return lista contendo vetor de inteiros indicando indices dos cenarios selecionados e resultado 
 #'     da compactacao
+#' 
+#' @examples 
+#' 
+#' # usando o dado exemplo do pacote
+#' 
+#' # execucao simples
+#' selec <- selecporquantil(cenariosdummy)
+#' 
+#' # pegando quantis c(.33, .5, .67)
+#' selec <- selecporquantil(cenariosdummy, c(.33, .5, .67))
+#' 
+#' @seealso \code{\link{plot.cenarios}} para visualizacao dos cenarios selecionados
 #' 
 #' @export
 
@@ -83,6 +95,43 @@ selecporquantil <- function(cenarios, quantis = c(.25, .5, .75), compact_fun = a
 #' 
 #' @return lista contendo vetor de inteiros indicando indices dos cenarios selecionados, resultado 
 #'     da compactacao e resultado da clusterizacao
+#' 
+#' @examples
+#' 
+#' # usando o dado exemplo do pacote
+#' 
+#' # a selecao pode ser realizada para uma unica regiao ou multiplas de forma multivariada
+#' 
+#' # Usando somente o SIN completo
+#' cens <- cenariosdummy["SIN"]
+#' 
+#' # Usando SUL e SE juntos
+#' cens <- cenariosdummy[c("SUL", "SE")]
+#' 
+#' # execucao simples pegando 3 clusters
+#' selec <- selecporcluster(cens, 3)
+#' 
+#' # usando diferentes funcoes de compactacao
+#' selec <- selecporcluster(cens, 3, compact_fun = acumulacens, compact_args = list(quebras = 3))
+#' selec <- selecporcluster(cens, 3, compact_fun = PCAcens, compact_args = list(vartot = .7))
+#' 
+#' # usando diferentes funcoes de clusterizacao
+#' selec <- selecporcluster(cens, 3, clust_fun = clusthierarq, method = "single")
+#' 
+#' # os dois metodos seguintes precisam que os pacotes 'mclust' e 'cluster', respectivamente, 
+#' # estejam instalados
+#' \dontrun{
+#' selec <- selecporcluster(cens, 3, clust_fun = clustEM, modelNames = c("EEE", "VVV"))
+#' selec <- selecporcluster(cens, 3, clust_fun = clustkmedoids, metric = "manhattan")
+#' }
+#' 
+#' # Por fim, pode ser feita a visualizacao da escolha
+#' selec <- selecporcluster(cens, 3)
+#' \dontrun{
+#' plot(cens, cens[, , selec[[1]]])
+#' }
+#' 
+#' @seealso \code{\link{plot.cenarios}} para visualizacao dos cenarios selecionados
 #' 
 #' @export
 

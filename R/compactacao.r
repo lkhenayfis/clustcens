@@ -49,7 +49,36 @@ NULL
 #' @param cenarios objeto da classe \code{cenarios} contendo apenas uma bacia e ano de referencia
 #' @param vartot percentual em formato decimal de variacao total mininima
 #' 
-#' @return objeto da classe \code{compactcen} contendo o dado em dimensao reduzida
+#' @return objeto da classe \code{compactcen} contendo o dado em dimensao reduzida. Este e uma lista
+#'     de um elemento nomeado \code{"compact"}, um \code{data.table} com as colunas
+#' 
+#' \describe{
+#' \item{\code{grupo}}{grupo a qual o cenario corresponde}
+#' \item{\code{cenario}}{indice do cenario com respeito a grupo}
+#' \item{\code{ind}}{indice do elemento no vetor de dimensao reduzida}
+#' \item{\code{valor}}{valor do elemento no vetor de dimensao reduzida}
+#' }
+#' 
+#' Adicionalmente contem os atributos
+#' 
+#' \itemize{
+#' \item{\code{metodo}: }{string do nome da funcao chamada para compactacao}
+#' \item{\code{teminv}: }{booleano indicando se a compactacao possui inversa}
+#' \item{\code{invfunc}: }{caso tenha inversa, a funcao que recebe vetores no espaco compactado e 
+#'     retorna no espaco original}
+#' }
+#' 
+#' @examples 
+#' 
+#' # usando o dado exemplo do pacote
+#' 
+#' # Compactando apenas os cenarios relativos ao SIN completo
+#' cens_compact <- PCAcens(cenariosdummy["SIN"])
+#' \dontrun{
+#' plot(cens_compact)
+#' }
+#' 
+#' @seealso \code{\link{plot.compactcen}} para visualizacao das compactacoes
 #' 
 #' @export
 
@@ -100,7 +129,36 @@ PCAcens <- function(cenarios, vartot = .8) {
 #' @param quebras ou um inteiro indicando em quantas partes iguais separar o dado ou um vetor de 
 #'     inteiros indicando as posicoes nas quais separar
 #' 
-#' @return objeto da classe \code{compactcen} contendo o dado em dimensao reduzida
+#' @return objeto da classe \code{compactcen} contendo o dado em dimensao reduzida. Este e uma lista
+#'     de um elemento nomeado \code{"compact"}, um \code{data.table} com as colunas
+#' 
+#' \describe{
+#' \item{\code{grupo}}{grupo a qual o cenario corresponde}
+#' \item{\code{cenario}}{indice do cenario com respeito a grupo}
+#' \item{\code{ind}}{indice do elemento no vetor de dimensao reduzida}
+#' \item{\code{valor}}{valor do elemento no vetor de dimensao reduzida}
+#' }
+#' 
+#' Adicionalmente contem os atributos
+#' 
+#' \itemize{
+#' \item{\code{metodo}: }{string do nome da funcao chamada para compactacao}
+#' \item{\code{teminv}: }{booleano indicando se a compactacao possui inversa}
+#' \item{\code{invfunc}: }{caso tenha inversa, a funcao que recebe vetores no espaco compactado e 
+#'     retorna no espaco original}
+#' }
+#' 
+#' @examples 
+#' 
+#' # usando o dado exemplo do pacote
+#' 
+#' # Compactando apenas os cenarios relativos ao SIN completo
+#' cens_compact <- acumulacens(cenariosdummy["SIN"], quebras = 2L)
+#' \dontrun{
+#' plot(cens_compact)
+#' }
+#' 
+#' @seealso \code{\link{plot.compactcen}} para visualizacao das compactacoes
 #' 
 #' @export
 

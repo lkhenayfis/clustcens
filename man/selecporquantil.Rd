@@ -35,8 +35,22 @@ funcao sera chamada com \code{cenarios} como primeiro arumento; \code{compact_ar
 informar demais parametros a serem utilizados por \code{compact_fun}, na forma de uma lista
 nomeada.
 
-O argumento cenarios deve ser um objeto da classe \code{cenarios} contendo apenas um ano de
-referencia e bacia. \code{quantis} deve ser um vetor indicando quais quantis estao sendo
-buscados. Por construcao e impossivel extrair exatamente estes quantis, de modo que serao
-retornados os indices dos cenarios associados aos quantis mais proximos.
+O argumento \code{cenarios} deve ser um objeto da classe \code{cenarios}. \code{quantis} deve ser
+um vetor indicando quais quantis estao sendo buscados. Por construcao e impossivel extrair
+exatamente estes quantis, de modo que serao retornados os indices dos cenarios associados aos
+quantis mais proximos.
+}
+\examples{
+
+# usando o dado exemplo do pacote
+
+# execucao simples
+selec <- selecporquantil(cenariosdummy)
+
+# pegando quantis c(.33, .5, .67)
+selec <- selecporquantil(cenariosdummy, c(.33, .5, .67))
+
+}
+\seealso{
+\code{\link{plot.cenarios}} para visualizacao dos cenarios selecionados
 }

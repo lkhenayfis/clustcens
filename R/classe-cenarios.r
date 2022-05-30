@@ -61,9 +61,51 @@ new_cenarios <- function(dat) {
 #' | SIN   | 2       | 2022-01-01 | XXXX  |
 #' | SIN   | 2       | 2022-01-02 | XXXX  |
 #' 
-#' @param dat data.table para converter
+#' @param dat \code{data.frame} ou \code{data.table} para converter
+#' 
+#' @examples 
+#' 
+#' # usando um dado inventado
+#' dat <- data.frame(
+#'     grupo = rep(paste0("G", seq(3)), each = 30),
+#'     cenario = rep(rep(seq(6), each = 5), 3),
+#'     indice = rep(seq(5), 18),
+#'     valor = rnorm(90)
+#'  )
+#' 
+#' cens <- as.cenarios(dat)
+#' \dontrun{
+#' cens
+#' }
+#' 
+#' # caso o dado nao possua as colunas nomeadas como esperado, serao adicionadas na ordem que se
+#' # esperava encontrar e um aviso sera emitido
+#' dat2 <- data.frame(
+#'     rep(paste0("G", seq(3)), each = 30),
+#'     rep(rep(seq(6), each = 5), 3),
+#'     rep(seq(5), 18),
+#'     rnorm(90)
+#'  )
+#' \dontrun{
+#' cens2 <- as.cenarios(dat2) # assume que as colunas estao na ordem esperada
+#' cens2
+#' }
+#' 
+#' # por fim, se o dado tiver um numero de colunas diferente de quatro, a coercao retorna erro
+#' dat3 <- data.frame(
+#'     rep(paste0("G", seq(3)), each = 30),
+#'     rep(rep(seq(6), each = 5), 3),
+#'     rep(seq(5), 18),
+#'     rnorm(90),
+#'     rep(NA, 90)
+#'  )
+#' \dontrun{
+#' cens3 <- as.cenarios(dat3)
+#' }
 #' 
 #' @return objeto da classe \code{cenarios} -- veja \code{\link{new_cenarios}} para mais detalhes
+#' 
+#' @seealso \code{\link{[.cenarios}} para subset de objetos da classe \code{cenarios}
 #' 
 #' @export
 
@@ -98,11 +140,31 @@ as.cenarios <- function(dat) {
 #' 
 #' @return objeto \code{cenarios} contendo apenas os valores especificados
 #' 
+#' @examples 
+#' 
+#' # utilizando o dado exemplo do pacote
+#' 
+#' # subset apenas da regiao "SUL"
+#' cens <- cenariosdummy["SUL"]
+#' 
+#' # subset dos cenarios 5, 10, 20
+#' cens <- cenariosdummy[, c(5, 10, 20)]
+#' 
+#' # datas simuladas 2022-11-01/2023-04-01
+#' cens <- cenariosdummy[, , seq.Date(as.Date("2022-11-01"), as.Date("2023-04-01"), by = "month")]
+#' 
+#' # NE e N, cenarios 10, 11, 12 nas datas 2022-09-01/2023-02-01
+#' cens <- cenariosdummy[
+#'     c("NE", "N"),
+#'     c(10, 11, 12),
+#'     seq.Date(as.Date("2022-09-01"), as.Date("2023-02-01"), by = "month")
+#' ]
+#' 
 #' @export
 
 `[.cenarios` <- function(x, i, j, k, ...) {
 
-    grupo <- cenario <- data <- NULL
+    grupo <- cenario <- indice <- NULL
 
     dat <- copy(x$cenarios)
 
