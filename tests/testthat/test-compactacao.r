@@ -20,6 +20,12 @@ test_that("Testes das funcoes de compactacao", {
     compac <- PCAcens(cenariosdummy[c("SIN", "SUL")], vartot = 1)
     testaPCAcens(compac)
 
+    cenarios2 <- cenariosdummy[c("SIN", "SE")]
+    cenarios2$cenarios[, cenario := rep(rep(outer(letters, letters, paste0)[131:32], each = 16), 2)]
+    compac <- PCAcens(cenarios2)
+
+    expect_equal(unique(cenarios2$cenarios$cenario), unique(compac$compact$cenario))
+
     compac <- PCAcens(cenariosdummy["SIN"])
 
     gg <- plot(compac, print = FALSE)

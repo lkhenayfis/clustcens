@@ -89,9 +89,10 @@ PCAcens <- function(cenarios, vartot = .8) {
     if(vartot > 1) vartot <- vartot / 100
 
     dat <- copy(cenarios$cenarios)
+    dat[, cenario := factor(cenario, levels = unique(cenario))]
 
-    pca <- dcast(dat, cenario ~ grupo + indice, value.var = "valor")[, -1]
-    pca <- prcomp(pca, scale = TRUE)
+    dat <- dcast(dat, cenario ~ grupo + indice, value.var = "valor")
+    pca <- prcomp(dat[, -1], scale = TRUE)
 
     if(vartot < 0) {
         importance <- 1
@@ -100,12 +101,13 @@ PCAcens <- function(cenarios, vartot = .8) {
     }
 
     compdat <- pca$x[, seq(importance), drop = FALSE]
-    compdat <- cbind(cenario = seq(nrow(compdat)), as.data.table(compdat))
+    compdat <- cbind(cenario = dat$cenario, as.data.table(compdat))
     compdat <- melt(compdat, id.vars = "cenario", variable.name = "ind", value.name = "valor")
     compdat[, ind := as.numeric(sub("[[:alpha:]]*", "", ind))]
 
     out <- cbind(grupo = paste0(attr(cenarios, "grupos"), collapse = "."), compdat)
     setorder(out, grupo, cenario, ind)
+    out[, cenario := as.character(cenario)]
 
     new_compactcen(out, "PCAcens", invtransfpca(pca, importance))
 }
