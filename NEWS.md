@@ -12,6 +12,7 @@
   kmedoides
 * Corrige um erro em `selecporcluster` que ocorria quando clusters tinham apenas um elemento. O 
   calculo do elemento mais proximo dava erro em funcao da simplificacao de matriz para vetores
+* `PCAcens` agora mantem o nome e ordem da coluna `cenarios` passada para compactacao
 
 # clustcens 1.0
 
