@@ -56,6 +56,8 @@ NULL
 
 getclustmeans <- function(clust) UseMethod("getclustmeans")
 
+#' @export 
+#' 
 #' @rdname getclust
 
 getclustmeans.default <- function(clust) {
@@ -68,6 +70,8 @@ getclustmeans.default <- function(clust) {
 
 getclustclass <- function(clust) UseMethod("getclustclass")
 
+#' @export 
+#' 
 #' @rdname getclust
 
 getclustclass.default <- function(clust) {
@@ -100,11 +104,15 @@ clustkmeans <- function(compact, nc, nstart = 30, ...) {
 
 #' @param clust objeto da classe \code{kmeans}
 #' 
+#' @export 
+#' 
 #' @rdname clustkmeans
 
 getclustclass.kmeans <- function(clust) clust$cluster
 
 #' @param clust objeto da classe \code{kmeans}
+#' 
+#' @export 
 #' 
 #' @rdname clustkmeans
 
@@ -138,11 +146,15 @@ clustkmedoids <- function(compact, nc, nstart = 30, ...) {
 
 #' @param clust objeto da classe \code{pam}
 #' 
+#' @export 
+#' 
 #' @rdname clustkmedoids
 
 getclustclass.pam <- function(clust) clust$clustering
 
 #' @param clust objeto da classe \code{pam}
+#' 
+#' @export 
 #' 
 #' @rdname clustkmedoids
 
@@ -183,11 +195,15 @@ clustEM <- function(compact, nc, ...) {
 
 #' @param clust objeto da classe \code{Mclust}
 #' 
+#' @export 
+#' 
 #' @rdname clustEM
 
 getclustclass.Mclust <- function(clust) clust$classification
 
 #' @param clust objeto da classe \code{Mclust}
+#' 
+#' @export 
 #' 
 #' @rdname clustEM
 
@@ -229,11 +245,15 @@ clusthierarq <- function(compact, nc, distfun = dist, ...) {
 
 #' @param clust objeto da classe \code{hclust_aug}
 #' 
+#' @export 
+#' 
 #' @rdname clusthierarq
 
 getclustclass.hclust_aug <- function(clust) attr(clust, "classes")
 
 #' @param clust objeto da classe \code{hclust_aug}
+#' 
+#' @export 
 #' 
 #' @rdname clusthierarq
 
