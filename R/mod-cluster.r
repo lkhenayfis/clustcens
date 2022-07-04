@@ -262,7 +262,9 @@ getclustmeans.hclust_aug <- function(clust) attr(clust, "medias")
 # HELPERS ------------------------------------------------------------------------------------------
 
 extracdims <- function(x) {
+    cenario <- NULL
     x <- x$compact
+    x[, cenario := factor(cenario, unique(cenario))]
     x <- dcast(x, cenario ~ grupo + ind, value.var = "valor")[, -1]
     return(x)
 }
