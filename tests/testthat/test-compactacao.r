@@ -8,6 +8,9 @@ test_that("Teste de compactacao: PCA", {
     expect_true(length(attr(compac, "escala")[[1]]) == 16)
     expect_true(length(attr(compac, "escala")[[2]]) == 16)
 
+    compac2 <- predict(compac, cenariosdummy["SIN"])
+    expect_true(identical(compac, compac2))
+
     compac <- PCAcens(cenariosdummy[c("SIN", "SUL")], vartot = 1)
     expect_equal(colnames(compac$compact), c("grupo", "cenario", "ind", "valor"))
     expect_equal(class(compac), c("PCAcens", "compactcen"))

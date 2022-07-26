@@ -77,13 +77,14 @@ PCAcens <- function(cenarios, vartot = .8) {
 #' @param newcens objeto \code{cenarios} contendo novos valores a compactar
 #' 
 #' @return objeto da classe \code{compactcen} contendo o novo dado em dimensao reduzida
+#' 
+#' @export
 
 predict.PCAcens <- function(x, newcens, ...) {
 
     SIGMA <- attr(x, "SIGMA")
     importance <- attr(x, "importance")
     escala <- attr(x, "escala")
-    escala <- do.call(rbind.data.frame, escala)
 
     dat <- copy(newcens$cenarios)
     dat[, cenario := factor(cenario, levels = unique(cenario))]
@@ -92,7 +93,7 @@ predict.PCAcens <- function(x, newcens, ...) {
     cens <- dat[[1]]
     dat  <- dat[, -1]
 
-    dat[] <- mapply(dat, escala, FUN = function(d, s) (d - s[1]) / s[2], SIMPLIFY = FALSE)
+    dat[] <- mapply(dat, escala[[1]], escala[[2]], FUN = function(d, s1, s2) (d - s1) / s2, SIMPLIFY = FALSE)
     compdat <- data.matrix(dat) %*% SIGMA
 
     monta_out_PCA(compdat, SIGMA, importance, cens, attr(newcens, "grupos"), escala)
