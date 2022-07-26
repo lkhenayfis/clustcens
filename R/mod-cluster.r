@@ -78,6 +78,24 @@ getclustclass.default <- function(clust) {
     stop(paste0("Metodo 'getclustclass' nao implementado para a classe ", class(clust)))
 }
 
+#' Adicao De Novos Dados
+#' 
+#' Generica para adicao de novas observacoes a clusters ja estimados
+#' 
+#' Cada metodos age sobre o objeto \code{clust} o minimo possivel para que as novas observacoes 
+#' sejam vistas pelos metodos \code{getclustclass} e \code{getclustmeans}. Isto significa que 
+#' diversos atributos do objeto \code{clust} nao sao alterados e entao se tornam incoerentes - ex. 
+#' a variacao total entre e intra clusters do kmeans.
+#' 
+#' @param clust objeto contendo a clusterizacao a qual adicionar novas obs
+#' @param newcomapct objeto \code{compactcen} contendo novas observacoes ja compactadas. Idealmente,
+#'     esta compactacao deve ser feita pela mesma funcao utilizada nos dados originais
+#' 
+#' @return objeto \code{clust} alterado com novas observacoes e suas classes ao final dos dados
+#'     originais
+
+addnewobs <- function(clust, newcompact) UseMethod("addnewobs")
+
 # KMEANS -------------------------------------------------------------------------------------------
 
 #' Clusteriza Dado Por Kmeans
@@ -117,6 +135,28 @@ getclustclass.kmeans <- function(clust) clust$cluster
 #' @rdname clustkmeans
 
 getclustmeans.kmeans <- function(clust) clust$centers
+
+#' @param clust objeto da classe \code{kmeans}
+#' @param newcompact objeto \code{compactcen} contendo novas observacoes a adicionar aos clusters
+#' 
+#' @export 
+#' 
+#' @rdname clustkmeans
+
+addnewobs.kmeans <- function(clust, newcompact) {
+    mat     <- extracdims(newcompact)
+    centers <- getclustmeans(clust)
+    dists <- sapply(seq(nrow(centers)), function(i) {
+        sapply(seq(nrow(mat)), function(j) sqrt(sum((mat[j, ] - centers[i, ])^2)))
+    })
+
+    maisprox <- apply(dists, 1, which.min)
+
+    clust$cluster <- c(cluster, maisprox)
+    clust$size    <- clust$size + sapply(seq(nrow(centers)), function(i) sum(maisprox == i))
+
+    return(clust)
+}
 
 # KMEDOIDES ----------------------------------------------------------------------------------------
 
