@@ -4,15 +4,14 @@
 \alias{new_compactcen}
 \title{Construtor De \code{compactcen}}
 \usage{
-new_compactcen(compact, metodo, invfunc)
+new_compactcen(compact, metodo, ...)
 }
 \arguments{
 \item{compact}{data.table contendo a informacao de cenarios compactados. Ver Detalhes}
 
 \item{metodo}{string indicando o nome da funcao utilizada para compactacao}
 
-\item{invfunc}{caso exista, funcao para transformar vetores no espaco reduzido de volta ao
-original}
+\item{...}{demais atributos a serem adicionados ao objeto}
 }
 \value{
 Objeto da classe \code{compactcen}, uma lista de um emento chamado compact contendo o
@@ -30,9 +29,9 @@ Adicionalmente contem os atributos
 \itemize{
 \item{\code{metodo}: }{string do nome da funcao chamada para compactacao}
 \item{\code{teminv}: }{booleano indicando se a compactacao possui inversa}
-\item{\code{invfunc}: }{caso tenha inversa, a funcao que recebe vetores no espaco compactado e
-retorna no espaco original}
 }
+
+Mais quaisquer outros que possam ser especificados em \code{...}
 }
 \description{
 Construtor interno de objetos com cenarios compactados
