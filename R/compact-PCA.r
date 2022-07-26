@@ -65,7 +65,8 @@ PCAcens <- function(cenarios, vartot = .8) {
         importance <- which(summary(pca)$importance[3, ] >= vartot)[1]
     }
 
-    monta_out_PCA(pca$x, importance, dat[[1]])
+    monta_out_PCA(pca$x, pca$rotation, importance, dat[[1]], attr(cenarios, "grupos"),
+        list(pca$center, pca$scale))
 }
 
 #' Compactacao De Novas Observacoes
@@ -94,7 +95,7 @@ predict.PCAcens <- function(x, newcens, ...) {
     dat[] <- mapply(dat, escala, FUN = function(d, s) (d - s[1]) / s[2], SIMPLIFY = FALSE)
     compdat <- data.matrix(dat) %*% SIGMA
 
-    monta_out_PCA(compdat, importance, cens)
+    monta_out_PCA(compdat, SIGMA, importance, cens, attr(newcens, "grupos"), escala)
 }
 
 # HELPERS ------------------------------------------------------------------------------------------
@@ -109,17 +110,16 @@ predict.PCAcens <- function(x, newcens, ...) {
 #' 
 #' @return objeto da classe \code{compactcen} contendo o dado em dimensao reduzida
 
-monta_out_PCA <- function(compdat, importance, cenarios) {
+monta_out_PCA <- function(compdat, SIGMA, importance, cenarios, grupos, escala) {
 
     compdat <- compdat[, seq(importance), drop = FALSE]
     compdat <- cbind(cenario = cenarios, as.data.table(compdat))
     compdat <- melt(compdat, id.vars = "cenario", variable.name = "ind", value.name = "valor")
     compdat[, ind := as.numeric(sub("[[:alpha:]]*", "", ind))]
 
-    out <- cbind(grupo = paste0(attr(newcens, "grupos"), collapse = "."), compdat)
+    out <- cbind(grupo = paste0(grupos, collapse = "."), compdat)
     setorder(out, grupo, cenario, ind)
     out[, cenario := as.character(cenario)]
 
-    new_compactcen(out, "PCAcens", importance = importance, SIGMA = pca$rotation,
-        escala = list(pca$center, pca$scale))
+    new_compactcen(out, "PCAcens", importance = importance, SIGMA = SIGMA, escala = escala)
 }
