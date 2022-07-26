@@ -1,31 +1,29 @@
-test_that("Testes das funcoes de compactacao", {
-
-    # PCA
-
-    testaPCAcens <- function(compac) {
-        expect_equal(colnames(compac$compact), c("grupo", "cenario", "ind", "valor"))
-        expect_equal(class(compac), "compactcen")
-        expect_equal(attr(compac, "metodo"), "PCAcens")
-        expect_true(attr(compac, "teminv"))
-
-        reverse <- unname(attr(compac, "invfunc")(compac$compact[cenario == 1, valor]))[1, ]
-        expect_snapshot_value(reverse, style = "deparse")
-
-        expect_error(plot(compac, print = FALSE))
-    }
+test_that("Teste de compactacao: PCA", {
 
     compac <- PCAcens(cenariosdummy["SIN"], vartot = 1)
-    testaPCAcens(compac)
+    expect_equal(colnames(compac$compact), c("grupo", "cenario", "ind", "valor"))
+    expect_equal(class(compac), c("PCAcens", "compactcen"))
+    expect_true(all(c("importance", "SIGMA", "escala") %in% names(attributes(compac))))
+    expect_true(all(dim(attr(compac, "SIGMA")) == c(16, 16)))
+    expect_true(length(attr(compac, "escala")[[1]]) == 16)
+    expect_true(length(attr(compac, "escala")[[2]]) == 16)
 
     compac <- PCAcens(cenariosdummy[c("SIN", "SUL")], vartot = 1)
-    testaPCAcens(compac)
+    expect_equal(colnames(compac$compact), c("grupo", "cenario", "ind", "valor"))
+    expect_equal(class(compac), c("PCAcens", "compactcen"))
+    expect_true(all(c("importance", "SIGMA", "escala") %in% names(attributes(compac))))
+    expect_true(all(dim(attr(compac, "SIGMA")) == c(32, 32)))
+    expect_true(length(attr(compac, "escala")[[1]]) == 32)
+    expect_true(length(attr(compac, "escala")[[2]]) == 32)
 
+    # Testando manutencao da ordem dos cenarios
     cenarios2 <- cenariosdummy[c("SIN", "SE")]
     cenarios2$cenarios[, cenario := rep(rep(outer(letters, letters, paste0)[131:32], each = 16), 2)]
     compac <- PCAcens(cenarios2)
 
     expect_equal(unique(cenarios2$cenarios$cenario), unique(compac$compact$cenario))
 
+    # Testes de plots
     compac <- PCAcens(cenariosdummy["SIN"])
 
     gg <- plot(compac, print = FALSE)
@@ -35,14 +33,13 @@ test_that("Testes das funcoes de compactacao", {
 
     gg <- plot(compac, print = FALSE)
     expect_equal(class(gg), c("gg", "ggplot"))
+})
 
-    # ACUMULADA
+test_that("Teste de compactacao: ACUMULADO", {
 
     testaacumulacens <- function(compac) {
         expect_equal(colnames(compac$compact), c("grupo", "cenario", "ind", "valor"))
-        expect_equal(class(compac), "compactcen")
-        expect_equal(attr(compac, "metodo"), "acumulacens")
-        expect_true(!attr(compac, "teminv"))
+        expect_equal(class(compac), c("acumulacens", "compactcen"))
 
         expect_error(plot(compac, print = FALSE))
     }
