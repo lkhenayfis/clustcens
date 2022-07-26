@@ -144,7 +144,7 @@ selecporcluster <- function(cenarios, nc, clust_fun = clustkmeans, ..., transfor
     cluster_call <- c(list(clust_fun, compact, nc), list(...))
     cluster <- eval(as.call(cluster_call))
 
-    if(attr(compact, "teminv") & transforma) {
+    if(transforma) {
         stop("Transformacao inversa ainda nao implementada")
     } else {
 

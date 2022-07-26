@@ -31,8 +31,7 @@
 #' 
 #' @param compact data.table contendo a informacao de cenarios compactados. Ver Detalhes
 #' @param metodo string indicando o nome da funcao utilizada para compactacao
-#' @param invfunc caso exista, funcao para transformar vetores no espaco reduzido de volta ao 
-#'     original
+#' @param ... demais atributos a serem adicionados ao objeto
 #' 
 #' @return Objeto da classe \code{compactcen}, uma lista de um emento chamado compact contendo o
 #'     argumento \code{compact}, um \code{data.table} com as colunas
@@ -49,20 +48,17 @@
 #' \itemize{
 #' \item{\code{metodo}: }{string do nome da funcao chamada para compactacao}
 #' \item{\code{teminv}: }{booleano indicando se a compactacao possui inversa}
-#' \item{\code{invfunc}: }{caso tenha inversa, a funcao que recebe vetores no espaco compactado e 
-#'     retorna no espaco original}
 #' }
+#' 
+#' Mais quaisquer outros que possam ser especificados em \code{...}
 
-new_compactcen <- function(compact, metodo, invfunc) {
+new_compactcen <- function(compact, metodo, ...) {
 
-    teminv <- !is.null(invfunc)
-
+    extra_attr <- list(...)
     out <- list(compact = compact)
 
-    class(out) <- c("compactcen")
-    attr(out, "metodo")  <- metodo
-    attr(out, "teminv")  <- teminv
-    if(teminv) attr(out, "invfunc") <- invfunc
+    class(out) <- c(metodo, "compactcen")
+    for(atr in names(extra_attr)) attr(out, atr) <- extra_attr[[atr]]
 
     return(out)
 }
