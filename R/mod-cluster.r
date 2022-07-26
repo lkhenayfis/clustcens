@@ -249,6 +249,32 @@ getclustclass.Mclust <- function(clust) clust$classification
 
 getclustmeans.Mclust <- function(clust) t(clust$parameters$mean)
 
+#' @param clust objeto da classe \code{Mclust}
+#' @param newcompact objeto \code{compactcen} contendo novas observacoes a adicionar aos clusters
+#' 
+#' @export 
+#' 
+#' @rdname clustkmeans
+
+addnewobs.Mclust <- function(clust, newcompact) {
+    if(!requireNamespace("mvtnorm", quietly = TRUE)) {
+        stop("Adicao de novas obs a clusters mistura gaussiana requer o pacote 'mvtnorm'")
+    }
+
+    pis   <- clust$parameters$pro
+    means <- clust$parameters$mean
+    vars  <- clust$parameters$variance$sigma
+
+    mat     <- extracdims(newcompact)
+    logliks <- lapply(seq(pis), function(i) dmvnorm(mat, means[, i], vars[, , i]))
+    logliks <- mapply("*", pis, logliks)
+    maisprob <- unname(apply(logliks, 1, which.max))
+
+    clust$classification <- c(clust$classification, maisprob)
+
+    return(clust)
+}
+
 # HCLUST -------------------------------------------------------------------------------------------
 
 #' Clusteriza Dado Por Metodo Aglomerativo Hierarquico

@@ -5,6 +5,7 @@
 \alias{getclustclass.kmeans}
 \alias{getclustmeans.kmeans}
 \alias{addnewobs.kmeans}
+\alias{addnewobs.Mclust}
 \title{Clusteriza Dado Por Kmeans}
 \usage{
 clustkmeans(compact, nc, nstart = 30, ...)
@@ -14,6 +15,8 @@ clustkmeans(compact, nc, nstart = 30, ...)
 \method{getclustmeans}{kmeans}(clust)
 
 \method{addnewobs}{kmeans}(clust, newcompact)
+
+\method{addnewobs}{Mclust}(clust, newcompact)
 }
 \arguments{
 \item{compact}{objeto \code{compactcen} contendo cenarios compactados para clusterizar}
@@ -24,7 +27,7 @@ clustkmeans(compact, nc, nstart = 30, ...)
 
 \item{...}{demais parametros passados a funcao \code{\link[stats]{kmeans}} exceto \code{nstart}}
 
-\item{clust}{objeto da classe \code{kmeans}}
+\item{clust}{objeto da classe \code{Mclust}}
 
 \item{newcompact}{objeto \code{compactcen} contendo novas observacoes a adicionar aos clusters}
 }
