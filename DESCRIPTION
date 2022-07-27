@@ -16,6 +16,7 @@ Suggests:
     cluster (>= 2.1),
     jsonlite (>= 1.7),
     mclust (>= 5.0),
+    mvtnorm (>= 1.1),
     plotly (>= 4.0),
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
