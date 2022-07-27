@@ -88,11 +88,13 @@ getclustclass.default <- function(clust) {
 #' a variacao total entre e intra clusters do kmeans.
 #' 
 #' @param clust objeto contendo a clusterizacao a qual adicionar novas obs
-#' @param newcomapct objeto \code{compactcen} contendo novas observacoes ja compactadas. Idealmente,
+#' @param newcompact objeto \code{compactcen} contendo novas observacoes ja compactadas. Idealmente,
 #'     esta compactacao deve ser feita pela mesma funcao utilizada nos dados originais
 #' 
 #' @return objeto \code{clust} alterado com novas observacoes e suas classes ao final dos dados
 #'     originais
+#' 
+#' @export
 
 addnewobs <- function(clust, newcompact) UseMethod("addnewobs")
 

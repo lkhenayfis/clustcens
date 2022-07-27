@@ -73,18 +73,21 @@ PCAcens <- function(cenarios, vartot = .8) {
 #' 
 #' Compacta novos cenarios utilizando a mesma funcao ja estimada para o objeto \code{x}
 #' 
-#' @param x objeto \code{compactcen} contendo uma compactacao por PCA
+#' @param object objeto \code{compactcen} contendo uma compactacao por PCA
 #' @param newcens objeto \code{cenarios} contendo novos valores a compactar
+#' @param ... nao tem uso, existe apenas para consistencia com a generica
 #' 
 #' @return objeto da classe \code{compactcen} contendo o novo dado em dimensao reduzida
 #' 
 #' @export
 
-predict.PCAcens <- function(x, newcens, ...) {
+predict.PCAcens <- function(object, newcens, ...) {
 
-    SIGMA <- attr(x, "SIGMA")
-    importance <- attr(x, "importance")
-    escala <- attr(x, "escala")
+    cenario <- NULL
+
+    SIGMA <- attr(object, "SIGMA")
+    importance <- attr(object, "importance")
+    escala <- attr(object, "escala")
 
     dat <- copy(newcens$cenarios)
     dat[, cenario := factor(cenario, levels = unique(cenario))]
@@ -105,13 +108,19 @@ predict.PCAcens <- function(x, newcens, ...) {
 #' 
 #' Wrapper de codigo comum entre \code{PCAcens} e seu metodo \code{predict}
 #' 
-#' @param compact matriz contendo a transformacao completa do dado em PCAs
-#' @param importance inteiro indicando quantas componentes reter
-#' @param cens nomes dos cenarios originalmente passados no objeto sendo compactado
+#' @param compdat matriz contendo a transformacao completa do dado em PCAs
+#' @param SIGMA matriz de carregamentos completa
+#' @param importance inteiro indicando o numero de componentes a reter na compactacao
+#' @param cenarios vetor de strings ou inteiros indicando indexacao dos cenarios
+#' @param grupos inteiro ou string indicando o grupo ao qual a compactacao se refere
+#' @param escala lista de dois elementos: vetor de media e vetor de desvio padrao por dimensao dos
+#'     cenarios originais, isto e, caracteristicas da normalizacao do dado transformado
 #' 
 #' @return objeto da classe \code{compactcen} contendo o dado em dimensao reduzida
 
 monta_out_PCA <- function(compdat, SIGMA, importance, cenarios, grupos, escala) {
+
+    ind <- grupo <- cenario <- NULL
 
     compdat <- compdat[, seq(importance), drop = FALSE]
     compdat <- cbind(cenario = cenarios, as.data.table(compdat))

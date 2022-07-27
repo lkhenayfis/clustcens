@@ -7,11 +7,18 @@
 monta_out_PCA(compdat, SIGMA, importance, cenarios, grupos, escala)
 }
 \arguments{
-\item{importance}{inteiro indicando quantas componentes reter}
+\item{compdat}{matriz contendo a transformacao completa do dado em PCAs}
 
-\item{compact}{matriz contendo a transformacao completa do dado em PCAs}
+\item{SIGMA}{matriz de carregamentos completa}
 
-\item{cens}{nomes dos cenarios originalmente passados no objeto sendo compactado}
+\item{importance}{inteiro indicando o numero de componentes a reter na compactacao}
+
+\item{cenarios}{vetor de strings ou inteiros indicando indexacao dos cenarios}
+
+\item{grupos}{inteiro ou string indicando o grupo ao qual a compactacao se refere}
+
+\item{escala}{lista de dois elementos: vetor de media e vetor de desvio padrao por dimensao dos
+cenarios originais, isto e, caracteristicas da normalizacao do dado transformado}
 }
 \value{
 objeto da classe \code{compactcen} contendo o dado em dimensao reduzida

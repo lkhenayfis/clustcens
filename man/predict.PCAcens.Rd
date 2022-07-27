@@ -4,12 +4,14 @@
 \alias{predict.PCAcens}
 \title{Compactacao De Novas Observacoes}
 \usage{
-\method{predict}{PCAcens}(x, newcens, ...)
+\method{predict}{PCAcens}(object, newcens, ...)
 }
 \arguments{
-\item{x}{objeto \code{compactcen} contendo uma compactacao por PCA}
+\item{object}{objeto \code{compactcen} contendo uma compactacao por PCA}
 
 \item{newcens}{objeto \code{cenarios} contendo novos valores a compactar}
+
+\item{...}{nao tem uso, existe apenas para consistencia com a generica}
 }
 \value{
 objeto da classe \code{compactcen} contendo o novo dado em dimensao reduzida

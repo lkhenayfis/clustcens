@@ -9,7 +9,7 @@ addnewobs(clust, newcompact)
 \arguments{
 \item{clust}{objeto contendo a clusterizacao a qual adicionar novas obs}
 
-\item{newcomapct}{objeto \code{compactcen} contendo novas observacoes ja compactadas. Idealmente,
+\item{newcompact}{objeto \code{compactcen} contendo novas observacoes ja compactadas. Idealmente,
 esta compactacao deve ser feita pela mesma funcao utilizada nos dados originais}
 }
 \value{
