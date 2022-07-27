@@ -1,4 +1,4 @@
-# addnewobs
+# clustcens 1.1.2
 
 ## New features
 
@@ -6,10 +6,6 @@
   * apenas objetos compactados por `PCAcens` sao suportados por enquanto
 * Inclui generica `addnewobs` para inclusao de novos dados em objetos de cluster ja estimados
   * apenas clusters realizados via `clustkmeans` ou `clustEM` sao suportados por enquanto
-
-# master
-
-## New features
 
 ### Minor
 

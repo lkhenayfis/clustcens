@@ -1,6 +1,6 @@
 Package: clustcens
 Title: Selecao E Extracao De Cenarios
-Version: 1.0.0.9000
+Version: 1.1.2
 Authors@R: 
     person("Lucas", "Khenayfis", , "lucaskhenayfis@gmail.com", role = c("aut", "cre"))
 Description: Este pacote prove funcoes para selecao de cenarios de variaveis genericas, 
