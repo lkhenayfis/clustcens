@@ -1,3 +1,12 @@
+# addnewobs
+
+## New features
+
+* Inclui metodo de `predict` para objetos `compactcen`
+  * apenas objetos compactados por `PCAcens` sao suportados por enquanto
+* Inclui generica `addnewobs` para inclusao de novos dados em objetos de cluster ja estimados
+  * apenas clusters realizados via `clustkmeans` ou `clustEM` sao suportados por enquanto
+
 # master
 
 ## New features
