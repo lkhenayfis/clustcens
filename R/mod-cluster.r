@@ -152,7 +152,7 @@ addnewobs.kmeans <- function(clust, newcompact) {
 
     maisprox <- apply(dists, 1, which.min)
 
-    clust$cluster <- c(cluster, maisprox)
+    clust$cluster <- c(clust$cluster, maisprox)
     clust$size    <- clust$size + sapply(seq(nrow(centers)), function(i) sum(maisprox == i))
 
     return(clust)
@@ -266,7 +266,7 @@ addnewobs.Mclust <- function(clust, newcompact) {
     vars  <- clust$parameters$variance$sigma
 
     mat     <- extracdims(newcompact)
-    logliks <- lapply(seq(pis), function(i) dmvnorm(mat, means[, i], vars[, , i]))
+    logliks <- lapply(seq(pis), function(i) mvtnorm::dmvnorm(mat, means[, i], vars[, , i]))
     logliks <- mapply("*", pis, logliks)
     maisprob <- unname(apply(logliks, 1, which.max))
 

@@ -13,6 +13,10 @@ test_that("Testes de clusterizacao", {
     expect_snapshot_value(getclustclass(clust), style = "deparse")
     expect_snapshot_value(getclustmeans(clust), style = "deparse")
 
+    clust <- clustkmeans(compac, 4)
+    clust2 <- addnewobs(clust, compac)
+    expect_equal(getclustclass(clust), getclustclass(clust2)[-seq(attr(cens, "ncen"))])
+
     gg <- plot(compac, clust, print = FALSE)
     expect_equal(class(gg), c("plotly", "htmlwidget"))
 
@@ -23,6 +27,10 @@ test_that("Testes de clusterizacao", {
     expect_equal(class(clust), "Mclust")
     expect_snapshot_value(getclustclass(clust), style = "deparse")
     expect_snapshot_value(getclustmeans(clust), style = "deparse")
+
+    clust <- clustEM(compac, 3)
+    clust2 <- addnewobs(clust, compac)
+    expect_equal(getclustclass(clust), getclustclass(clust2)[-seq(attr(cens, "ncen"))])
 
     gg <- plot(compac, clust, print = FALSE)
     expect_equal(class(gg), c("plotly", "htmlwidget"))
