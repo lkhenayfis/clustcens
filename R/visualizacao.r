@@ -7,6 +7,8 @@
 #' O argumento \code{...} permite que sejam passados mais outros objetos \code{cenarios} contendo
 #' um numero menor de cenarios selecionados para plot por cima do completo.
 #' 
+#' Esta funcao exige a dependencia opcial \code{ggplot2}, sem a qual retorna um erro.
+#' 
 #' @param x objeto da classe \code{cenarios}
 #' @param ... objetos \code{cenarios} opcionais com cenarios a serem plotados por cima
 #' @param print booleano indicando se o plot deve ser exibido ou retornado invisivelmente
@@ -37,14 +39,15 @@
 #' plot(cenariosdummy, cenariosdummy["SUL", seq(10)])
 #' }
 #' 
-#' @importFrom ggplot2 ggplot aes geom_line facet_wrap theme theme_bw scale_x_date
-#' @importFrom ggplot2 scale_color_discrete element_line element_text labs
-#' 
 #' @export
 
 plot.cenarios <- function(x, ..., print = TRUE) {
 
     grupo <- cenario <- indice <- valor <- acum <- tipo <- NULL
+
+    if(!requireNamespace("ggplot2", quietly = TRUE)) {
+        stop("Visualizacao de cenarios requer o pacote 'ggplot2'")
+    }
 
     nbacias <- length(attr(x, "grupos"))
 
@@ -65,16 +68,16 @@ plot.cenarios <- function(x, ..., print = TRUE) {
         highlight <- rbindlist(highlight)
     }
 
-    g <- ggplot() +
-        geom_line(data = x, aes(indice, valor, group = cenario), color = "grey80", alpha = .4) +
-        geom_line(data = highlight, aes(indice, valor, group = cenario, color = tipo)) +
-        scale_color_discrete(name = "") +
-        scale_x_date(name = "Data", breaks = "1 month", date_labels = "%b/%Y") +
-        labs(y = "Valor") +
-        facet_wrap(~ grupo, ncol = 1, scales = "free_y") +
-        theme_bw() +
-        theme(axis.text.x = element_text(hjust = 1, angle = 50),
-            panel.grid.minor = element_line(color = NA))
+    g <- ggplot2::ggplot() +
+        ggplot2::geom_line(data = x, ggplot2::aes(indice, valor, group = cenario), color = "grey80", alpha = .4) +
+        ggplot2::geom_line(data = highlight, ggplot2::aes(indice, valor, group = cenario, color = tipo)) +
+        ggplot2::scale_color_discrete(name = "") +
+        ggplot2::scale_x_date(name = "Data", breaks = "1 month", date_labels = "%b/%Y") +
+        ggplot2::labs(y = "Valor") +
+        ggplot2::facet_wrap(~ grupo, ncol = 1, scales = "free_y") +
+        ggplot2::theme_bw() +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 50),
+            panel.grid.minor = ggplot2::element_line(color = NA))
 
     if(print) print(g)
 
@@ -88,6 +91,10 @@ plot.cenarios <- function(x, ..., print = TRUE) {
 #' Esta funcao permite a visualizacao da compactacao de cenarios e resultado da clusterizacao. Deve
 #' ser notado que sua funcionalidade esta prevista apenas para compactacoes em ate tres dimensoes e
 #' retornara um erro caso seja passado \code{x} com quatro ou mais.
+#' 
+#' A visualizacao de compactacoes em uma ou duas dimensoes exige a dependencia opcional 
+#' \code{ggplot2}, enquanto em tres dimensoes exige \code{plotly}. A ausencia da dependencia 
+#' relevante retornara um erro.
 #' 
 #' @param x objeto da classe \code{compactcen} gerado por uma das funcoes de compactacao
 #' @param clusters argumento opcional, objeto retornado por uma das funcoes de clusterizacao
@@ -113,8 +120,6 @@ plot.cenarios <- function(x, ..., print = TRUE) {
 #' plot(cens_compact, clusters)
 #' }
 #' 
-#' @importFrom ggplot2 ggplot aes geom_point scale_color_discrete theme_bw
-#' 
 #' @export
 
 plot.compactcen <- function(x, clusters, print = TRUE, ...) {
@@ -126,25 +131,27 @@ plot.compactcen <- function(x, clusters, print = TRUE, ...) {
     colnames(dat) <- paste0("Dim", seq(ncol(dat)))
     dim <- ncol(dat)
 
-    if(dim == 3 & !requireNamespace("plotly", quietly = TRUE)) {
+    if(dim <= 2 & !requireNamespace("ggplot2", quietly = TRUE)) {
+        stop("Visualizacao de compactacoes em uma ou duas dimensoes requer o pacote 'ggplot2'")
+    } else if(dim == 3 & !requireNamespace("plotly", quietly = TRUE)) {
         stop("Visualizacao de compactacoes em tres dimensoes requer o pacote 'plotly'")
     }
 
     if(!missing("clusters")) {
         dat[, Cluster := getclustclass(clusters)]
         dat[, Cluster := factor(Cluster, labels = paste0("Clust.", unique(Cluster)), ordered = TRUE)]
-        gp <- geom_point(aes(color = Cluster))
+        gp <- ggplot2::geom_point(ggplot2::aes(color = Cluster))
         lycol <- list(color = ~Cluster)
     } else {
-        gp <- geom_point()
+        gp <- ggplot2::geom_point()
         lycol <- list()
     }
 
     if(dim == 1) {
         dat[, Dim2 := rep(0, .N)]
-        pp <- ggplot(dat, aes(Dim1, Dim2)) + gp + theme_bw()
+        pp <- ggplot2::ggplot(dat, ggplot2::aes(Dim1, Dim2)) + gp + ggplot2::theme_bw()
     } else if(dim == 2) {
-        pp <- ggplot(dat, aes(Dim1, Dim2)) + gp + theme_bw()
+        pp <- ggplot2::ggplot(dat, ggplot2::aes(Dim1, Dim2)) + gp + ggplot2::theme_bw()
     } else if(dim == 3) {
         call <- c(list(quote(plotly::plot_ly), quote(dat), x = ~Dim1, y = ~Dim2, z = ~Dim3,
             type = "scatter3d", mode = "markers"), lycol)

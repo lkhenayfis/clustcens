@@ -1,3 +1,10 @@
+# master
+
+## Misc
+
+* Torna `ggplot2` uma dependencia opcional assim como `plotly`. Assim, toda a parte de visualizacao
+  do pacote fica opcional, reduzindo a carga de instalacao
+
 # clustcens 1.1.2
 
 ## New features

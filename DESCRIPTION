@@ -1,6 +1,6 @@
 Package: clustcens
 Title: Selecao E Extracao De Cenarios
-Version: 1.1.2
+Version: 1.1.2.9000
 Authors@R: 
     person("Lucas", "Khenayfis", , "lucaskhenayfis@gmail.com", role = c("aut", "cre"))
 Description: Este pacote prove funcoes para selecao de cenarios de variaveis genericas, 
@@ -11,13 +11,13 @@ Depends:
     R (>= 4.0)
 Imports:
     data.table (>= 1.10),
-    ggplot2 (>= 3.3)
 Suggests:
     cluster (>= 2.1),
     jsonlite (>= 1.7),
     mclust (>= 5.0),
     mvtnorm (>= 1.1),
     plotly (>= 4.0),
+    ggplot2 (>= 3.3),
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8

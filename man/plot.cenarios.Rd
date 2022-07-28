@@ -22,6 +22,8 @@ Plot em grade de objetos \code{cenarios}
 \details{
 O argumento \code{...} permite que sejam passados mais outros objetos \code{cenarios} contendo
 um numero menor de cenarios selecionados para plot por cima do completo.
+
+Esta funcao exige a dependencia opcial \code{ggplot2}, sem a qual retorna um erro.
 }
 \examples{
 

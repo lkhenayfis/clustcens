@@ -26,6 +26,10 @@ Plot do dado compactado em ate tres dimensoes, possivelmente colorido por cluste
 Esta funcao permite a visualizacao da compactacao de cenarios e resultado da clusterizacao. Deve
 ser notado que sua funcionalidade esta prevista apenas para compactacoes em ate tres dimensoes e
 retornara um erro caso seja passado \code{x} com quatro ou mais.
+
+A visualizacao de compactacoes em uma ou duas dimensoes exige a dependencia opcional
+\code{ggplot2}, enquanto em tres dimensoes exige \code{plotly}. A ausencia da dependencia
+relevante retornara um erro.
 }
 \examples{
 
